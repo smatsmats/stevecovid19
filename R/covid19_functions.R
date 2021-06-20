@@ -51,8 +51,8 @@ PUSH_TO_AMAZON <- TRUE
 
 # constants
 plot_start_date <- "2020/3/1"  # not the earliest case in WA but ...
-plot_end_date <-
-  format(Sys.Date(), "%Y/%m/%d") #gets reset in newday function
+#plot_end_date <-
+#  format(Sys.Date(), "%Y/%m/%d") #gets reset in newday function
 cumulative_c19_cases_txt <- "Cumulative COVID-19 Cases"
 daily_c19_cases_txt <- "Daily COVID-19 Cases"
 fourteen_day_avrg_txt <- "14day Average"
