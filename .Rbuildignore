@@ -5,3 +5,4 @@
 ^tests$
 ^run_tests.sh$
 ^.github$
+^LICENSE\.md$

@@ -2,13 +2,24 @@ Package: stevecovid19
 Type: Package
 Title: What the Package Does (Title Case)
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
+Author: Stephen Mats Mats
+Maintainer: Stephen Mats Mats <willey@selby.com>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+License: Apache License (>= 2)
 Encoding: UTF-8
 LazyData: true
-Suggests: 
+Imports:
+    aws.s3,
+    zoo,
+    scales,
+    dplyr,
+    lubridate,
+    tidyr,
+    ggplot2,
+    stringr,
+    ggmap,
+    maps,
+    mapdata,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

@@ -1,5 +1,3 @@
-library(renv)
-renv::restore()
 library(testthat)
 library(stevecovid19)
 
