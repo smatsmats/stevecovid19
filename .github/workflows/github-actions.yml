@@ -19,12 +19,12 @@ jobs:
 
       - name: Apt-get needed things
         run: |
-          sudo apt-get update -y && 
+          sudo apt-get update -y &&
           sudo apt-get upgrade -y &&
           sudo apt-get dist-upgrade -y &&
-          sudo apt-get clean all && 
+          sudo apt-get clean all &&
           sudo apt-get install --no-install-recommends -y \
-          apt-utils && 
+          apt-utils &&
           sudo apt-get install --no-install-recommends -y \
           git \
           curl \
@@ -33,14 +33,14 @@ jobs:
           libxml2-dev
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-      - name: Install packages
-        run: |
-          sudo Rscript covid19_install_packages.R
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+#     - name: Install packages
+#        run: |
+#          sudo Rscript covid19_install_packages.R
+#      - run: echo "🍏 This job's status is ${{ job.status }}."
 
       - name: Run Tests
         run: |
-          ./run_tests.sh 
+          ./run_tests.sh
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
 
