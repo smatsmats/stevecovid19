@@ -32,12 +32,10 @@ jobs:
           libcurl4-openssl-dev \
           libxml2-dev
       - run: echo "🍏 This job's status is ${{ job.status }}."
-
-     - name: Install packages
+      - name: Install packages
         run: |
           sudo Rscript covid19_install_packages.R
       - run: echo "🍏 This job's status is ${{ job.status }}."
-
       - name: Run Tests
         run: |
           ./run_tests.sh
