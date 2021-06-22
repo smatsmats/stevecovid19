@@ -97,7 +97,7 @@ file_to_bucket <- function(file, unlink_after = TRUE) {
 # reads in population file date and does some formating
 get_population <- function() {
   uid_iso_fips_lookup <-
-    read.csv(
+    utils::read.csv(
       "https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv?raw=true"
     )
   uid_iso_fips_lookup <<- mash_combined_key(uid_iso_fips_lookup)
@@ -119,11 +119,11 @@ onetime <- function() {
   # 2016 presidential election results, by county
   if (ENABLE_RED_BLUE) {
     prez_2016 <<-
-      read.csv(
+      utils::read.csv(
         "https://raw.githubusercontent.com/mkearney/presidential_election_county_results_2016/master/pres.elect16.results.dec9.csv"
       )
     prez_2020 <<-
-      read.csv(
+      utils::read.csv(
         "https://github.com/kjhealy/us_elections_2020_csv/raw/master/results_current.csv"
       )
   }
@@ -133,7 +133,7 @@ onetime <- function() {
 
   # info on wa counties
   wa_counties <<-
-    read.csv(
+    utils::read.csv(
       "https://docs.google.com/uc?id=19OOGc3UmvN77oqPP9JeRKFbGSzuxzxRQ&export=download"
     )
 
@@ -150,11 +150,11 @@ newday <- function() {
 
   # comes in wide
   usa_confirmed <<-
-    read.csv(
+    utils::read.csv(
       "https://github.com/CSSEGISandData//COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv?raw=true"
     )
   global_confirmed <<-
-    read.csv(
+    utils::read.csv(
       "https://github.com/CSSEGISandData//COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv?raw=true"
     )
 
@@ -219,11 +219,11 @@ newday <- function() {
 
 vax_data <- function() {
   vax_global_wide_raw <<-
-    read.csv(
+    utils::read.csv(
       "https://raw.githubusercontent.com/govex/COVID-19/master/data_tables/vaccine_data/global_data/time_series_covid19_vaccine_doses_admin_global.csv"
     )
   vax_us_wide_raw <<-
-    read.csv(
+    utils::read.csv(
       "https://raw.githubusercontent.com/govex/COVID-19/master/data_tables/vaccine_data/us_data/time_series/time_series_covid19_vaccine_doses_admin_US.csv"
     )
   vax_global_wide <- mash_combined_key(vax_global_wide_raw)
@@ -235,7 +235,7 @@ vax_data <- function() {
     summarize_vax_wide_data(vax_global_wide, latest_g)
   vax_us_wide <<- summarize_vax_wide_data(vax_us_wide, latest_u)
 
-  write.csv(vax_us_wide, "vax_us_wide.csv")
+  # utils::write.csv(vax_us_wide, "vax_us_wide.csv")
 
   return(0)
 
@@ -442,7 +442,7 @@ make_plot <- function(df,
   if (cases_per_hundy) {
     if (!is.null(file_base)) {
       f <- paste(file_base, "_cases_per_hundy", ".jpg", sep = "")
-      jpeg(filename = f,
+      grDevices::jpeg(filename = f,
            width = plot_file_width,
            height = plot_file_height)
     }
@@ -467,7 +467,7 @@ make_plot <- function(df,
     print(p)
 
     if (!is.null(file_base)) {
-      dev.off()
+      grDevices::dev.off()
     }
 
   }
@@ -475,7 +475,7 @@ make_plot <- function(df,
   if (cases) {
     if (!is.null(file_base)) {
       f <- paste(file_base, "_cases", ".jpg", sep = "")
-      jpeg(filename = f,
+      grDevices::jpeg(filename = f,
            width = plot_file_width,
            height = plot_file_height)
     }
@@ -501,14 +501,14 @@ make_plot <- function(df,
     print(p)
 
     if (!is.null(file_base)) {
-      dev.off()
+      grDevices::dev.off()
     }
   } # if cases
 
   if (daily_cases) {
     if (!is.null(file_base)) {
       f <- paste(file_base, "_daily_cases", ".jpg", sep = "")
-      jpeg(filename = f,
+      grDevices::jpeg(filename = f,
            width = plot_file_width,
            height = plot_file_height)
     }
@@ -554,7 +554,7 @@ make_plot <- function(df,
     print(p)
 
     if (!is.null(file_base)) {
-      dev.off()
+      grDevices::dev.off()
     }
   } # if daily cases
 
@@ -606,7 +606,7 @@ multi_make_plot <- function(df,
   print(p)
 
   if (!is.null(file_base)) {
-    dev.off()
+    grDevices::dev.off()
   }
 
 } # multi_make_plot
@@ -768,7 +768,7 @@ if (live_mode) {
 }
 
 write_csv_file <- function(df, file_base) {
-  write.csv(df, paste(file_base, ".csv", sep = ""))
+  utils::write.csv(df, paste(file_base, ".csv", sep = ""))
 }
 
 make_redblue_plot <- function(df,
@@ -812,7 +812,7 @@ make_redblue_plot <- function(df,
   if (cases_per_hundy) {
     if (!is.null(file_base)) {
       f <- paste(file_base, "_cases_per_hundy", ".jpg", sep = "")
-      jpeg(filename = f,
+      grDevices::jpeg(filename = f,
            width = plot_file_width,
            height = plot_file_height)
     }
@@ -828,10 +828,10 @@ make_redblue_plot <- function(df,
       xlim = as.Date(c(plot_start_date, plot_end_date))
     )
     if (max_blue_cases_per_hundy > 0) {
-      lines(df$dates, df$blue_cases_per_hundy, col = "blue")
+      graphics::lines(df$dates, df$blue_cases_per_hundy, col = "blue")
     }
     if (!is.null(file_base)) {
-      dev.off()
+      grDevices::dev.off()
     }
 
   }
@@ -839,7 +839,7 @@ make_redblue_plot <- function(df,
   if (cases) {
     if (!is.null(file_base)) {
       f <- paste(file_base, "_cases", ".jpg", sep = "")
-      jpeg(filename = f,
+      grDevices::jpeg(filename = f,
            width = plot_file_width,
            height = plot_file_height)
       #      print("on 2")
@@ -856,10 +856,10 @@ make_redblue_plot <- function(df,
       xlim = as.Date(c(plot_start_date, plot_end_date))
     )
     if (max_blue > 0) {
-      lines(df$dates, df$blue_cases, col = "blue")
+      graphics::lines(df$dates, df$blue_cases, col = "blue")
     }
     if (!is.null(file_base)) {
-      dev.off()
+      grDevices::dev.off()
       #      print("off 2")
     }
 
@@ -1070,7 +1070,7 @@ if (live_mode) {
   ca_bc_cases <<- get_admin1("British Columbia", admin0 = "Canada")
   make_plot(ca_bc_cases, "bongo", daily_cases = TRUE)
   dc_cases <<- get_admin1("District of Columbia")
-  write.csv(wa_cases, "wa_cases.csv")
+  # utils::write.csv(wa_cases, "wa_cases.csv")
   pr_cases <- get_admin1("Puerto Rico")
 }
 
@@ -1131,7 +1131,7 @@ build_all_states <- function(combined = TRUE,
     file_base <- str_replace_all(tolower(state), " ", "_")
     if (write_dfs) {
       filename <- paste(file_base, "csv", sep = ".")
-      write.csv(new_df, filename)
+      utils::write.csv(new_df, filename)
       file_to_bucket(filename)
     }
 
@@ -1195,7 +1195,7 @@ build_all_states <- function(combined = TRUE,
       filename <- paste("wa_and_", tolower(state), ".jpg", sep = "")
       filename <- str_replace_all(filename, " ", "_")
 
-      jpeg(filename = filename,
+      grDevices::jpeg(filename = filename,
            width = plot_file_width,
            height = plot_file_height)
 
@@ -1238,7 +1238,7 @@ build_all_states <- function(combined = TRUE,
 
       print(p)
 
-      dev.off()
+      grDevices::dev.off()
       file_to_bucket(filename)
     }
 
@@ -1290,7 +1290,7 @@ wa_east_west <- function(plot_casesned = FALSE,
 
   if (!is.null(file_base)) {
     f <- paste(file_base, "_cases_per_hundy", ".jpg", sep = "")
-    jpeg(filename = f,
+    grDevices::jpeg(filename = f,
          width = plot_file_width,
          height = plot_file_height)
   }
@@ -1305,22 +1305,22 @@ wa_east_west <- function(plot_casesned = FALSE,
     col = "gold",
     xlim = as.Date(c(plot_start_date, plot_end_date))
   )
-  mtext(paste("created", format(Sys.Date(), "%m/%d/%Y")), side = 3)
-  legend(
+  graphics::mtext(paste("created", format(Sys.Date(), "%m/%d/%Y")), side = 3)
+  graphics::legend(
     "topleft",
     legend = c("Eastern", "Western"),
     col = c("gold", "green"),
     lty = 1
   )
-  lines(combined_west_df$dates,
+  graphics::lines(combined_west_df$dates,
         combined_west_df$cases_per_hundy,
         col = "green")
   if (!is.null(file_base)) {
-    dev.off()
+    grDevices::dev.off()
   }
 
   filename = "east_west_daily.jpg"
-  jpeg(filename = filename,
+  grDevices::jpeg(filename = filename,
        width = plot_file_width,
        height = plot_file_height)
 
@@ -1373,7 +1373,7 @@ wa_east_west <- function(plot_casesned = FALSE,
     )
 
   print(p)
-  dev.off()
+  grDevices::dev.off()
   file_to_bucket(filename)
 
 }
@@ -1444,7 +1444,7 @@ prep_wide_data <- function() {
   # put in global environment
   us_counties_wide <<- us_counties_wide
 
-  write.csv(us_counties_wide, file = "us_counties_covid19_cases.csv")
+  # utils::write.csv(us_counties_wide, file = "us_counties_covid19_cases.csv")
 
   # states
   us_states_wide <- us_states_wide_raw
@@ -1495,7 +1495,7 @@ make_a_map_from_base <- function(df,
     df4export <- unique(df[, c(key, var)])
     if (!is.null(filebase)) {
       filename <- paste(filebase, "csv", sep = ".")
-      write.csv(df4export, filename)
+      utils::write.csv(df4export, filename)
       file_to_bucket(filename)
     }
   }
@@ -1517,7 +1517,7 @@ make_a_map_from_base <- function(df,
 
   if (!is.null(filebase)) {
     filename <- paste(filebase, "jpg", sep = ".")
-    jpeg(filename = filename,
+    grDevices::jpeg(filename = filename,
          width = plot_file_width,
          height = plot_file_height)
   }
@@ -1598,7 +1598,7 @@ make_a_map_from_base <- function(df,
   print(mymap)
 
   if (!is.null(filename)) {
-    dev.off()
+    grDevices::dev.off()
   }
   file_to_bucket(filename)
 
@@ -1899,7 +1899,7 @@ doit <- function() {
 
   ##############################################################################
   filename = "my_perhundy_select.jpg"
-  jpeg(filename = filename,
+  grDevices::jpeg(filename = filename,
        width = plot_file_width,
        height = plot_file_height)
 
@@ -1995,14 +1995,14 @@ doit <- function() {
     )
   print(p)
 
-  dev.off()
+  grDevices::dev.off()
   file_to_bucket(filename)
 
   ##############################################################################
   # apple cup
   # daily rates
   filename = "apple_cup_daily.jpg"
-  jpeg(filename = filename,
+  grDevices::jpeg(filename = filename,
        width = plot_file_width,
        height = plot_file_height)
 
@@ -2046,12 +2046,12 @@ doit <- function() {
     )
 
   print(p)
-  dev.off()
+  grDevices::dev.off()
   file_to_bucket(filename)
 
   ##############################################################################
   filename = "uw_v_wsu.jpg"
-  jpeg(filename = filename,
+  grDevices::jpeg(filename = filename,
        width = plot_file_width,
        height = plot_file_height)
 
@@ -2089,7 +2089,7 @@ doit <- function() {
     )
   print(p)
 
-  dev.off()
+  grDevices::dev.off()
   file_to_bucket(filename)
 
   ##############################################################################
@@ -2127,7 +2127,7 @@ doit <- function() {
 
   ##############################################################################
   filename = "is_king_balto.jpg"
-  jpeg(filename = filename,
+  grDevices::jpeg(filename = filename,
        width = plot_file_width,
        height = plot_file_height)
   maxy = max(b_co_cases$daily_cases_per_hundy_avrg14d, na.rm = TRUE)
@@ -2170,12 +2170,12 @@ doit <- function() {
     )
   print(p)
 
-  dev.off()
+  grDevices::dev.off()
   file_to_bucket(filename)
 
   ##############################################################################
   filename <- "is_king_wa.jpg"
-  jpeg(filename = filename,
+  grDevices::jpeg(filename = filename,
        width = plot_file_width,
        height = plot_file_height)
   maxy <-
@@ -2211,12 +2211,12 @@ doit <- function() {
     )
   print(p)
 
-  dev.off()
+  grDevices::dev.off()
   file_to_bucket(filename)
 
   ##############################################################################
   filename = "is_king_wa_sum.jpg"
-  jpeg(filename = filename,
+  grDevices::jpeg(filename = filename,
        width = plot_file_width,
        height = plot_file_height)
 
@@ -2276,14 +2276,14 @@ doit <- function() {
 
   print(p)
 
-  dev.off()
+  grDevices::dev.off()
   file_to_bucket(filename)
 
   ##############################################################################
   # MISC graphs
   # multiple counties 14 day
   filename = "misc.jpg"
-  jpeg(filename = filename,
+  grDevices::jpeg(filename = filename,
        width = plot_file_width,
        height = plot_file_height)
 
@@ -2346,7 +2346,7 @@ doit <- function() {
     )
   print(p)
 
-  dev.off()
+  grDevices::dev.off()
   file_to_bucket(filename)
 
 
@@ -2354,7 +2354,7 @@ doit <- function() {
   # MISC2222222222222222222222
   # multiple counties 14 day
   filename = "misc2.jpg"
-  jpeg(filename = filename,
+  grDevices::jpeg(filename = filename,
        width = plot_file_width,
        height = plot_file_height)
 
@@ -2392,14 +2392,14 @@ doit <- function() {
     )
   print(p)
 
-  dev.off()
+  grDevices::dev.off()
   file_to_bucket(filename)
 
   ##############################################################################
   # MISC2222222222222222222222bbbb
   # multiple counties 14 day
   filename = "misc2.jpg"
-  jpeg(filename = filename,
+  grDevices::jpeg(filename = filename,
        width = plot_file_width,
        height = plot_file_height)
 
@@ -2439,7 +2439,7 @@ doit <- function() {
     )
   print(p)
 
-  dev.off()
+  grDevices::dev.off()
   file_to_bucket(filename)
 
 }  #doit
