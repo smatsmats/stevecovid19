@@ -4,5 +4,6 @@
 ^\.Rproj\.user$
 ^tests$
 ^run_tests.sh$
-^.github$
+^\.github$
 ^LICENSE\.md$
+^covid19_install_packages\.R$

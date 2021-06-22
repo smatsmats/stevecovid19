@@ -33,10 +33,10 @@ jobs:
           libxml2-dev
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-#     - name: Install packages
-#        run: |
-#          sudo Rscript covid19_install_packages.R
-#      - run: echo "🍏 This job's status is ${{ job.status }}."
+     - name: Install packages
+        run: |
+          sudo Rscript covid19_install_packages.R
+      - run: echo "🍏 This job's status is ${{ job.status }}."
 
       - name: Run Tests
         run: |
