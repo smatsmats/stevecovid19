@@ -1,4 +1,6 @@
 library(testthat)
 library(stevecovid19)
 
-test_check("stevecovid19")
+renv::restore()
+
+testthat::test_check("stevecovid19")
