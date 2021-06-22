@@ -1,3 +1,3 @@
 #!/bin/sh
 set -o errexit
-Rscript -e "installed.packages()"
+Rscript --default-packages=testthat,renv -e "installed.packages()"
