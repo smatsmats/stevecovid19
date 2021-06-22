@@ -25,3 +25,5 @@ Imports:
     roxygen2
 Config/testthat/edition: 3
 RoxygenNote: 7.1.1
+Suggests: 
+    covr
